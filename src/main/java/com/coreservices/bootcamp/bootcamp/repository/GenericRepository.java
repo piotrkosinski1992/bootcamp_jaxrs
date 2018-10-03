@@ -9,22 +9,25 @@ import com.coreservices.bootcamp.bootcamp.tools.BasicOrderFileReader;
 import com.coreservices.bootcamp.bootcamp.tools.CSVFileReader;
 
 
-
 /**
  * 
  * @author Lenovo
- *	Klasa odpowiedzialna za przygotowanie "bazy" w postaci listy zam�wie�. Jest singletonem �eby by�a jedna instancja i �eby tylko raz zbiera� zam�wienia z plik�w
+ *	
  */
 public class GenericRepository {
 
 
+	private static GenericRepository genericRepository;
     private final String ORDERS_DIRECTORY = "orders";
     private BasicOrderFileReader fileReader;
 
     private List<Order> orders;
 
-
-    public GenericRepository(){
+    /**
+     *  gdzie inicjalizować arraylistę? W konstruktorze a może od razu przy zmniennej. Czemu w konstrukturze :D?
+     *  odpalam tu podczas inicjalizacji getOrderObjectList() zeby zainicjalizować pozyskanie danych z plików
+     */
+    private GenericRepository(){
         orders = new ArrayList<Order>();
         getOrderObjectList();
     };
@@ -48,8 +51,16 @@ public class GenericRepository {
     }
 
     private File[] getOrderFiles() {
-        File folder = new File(getClass().getClassLoader().getResource("orders").getPath());
+    	File folder = new File(getClass().getClassLoader().getResource(ORDERS_DIRECTORY).getPath());
+
         return folder.listFiles();
+    }
+
+    public static GenericRepository initializeDatabaseConnection(){
+    	if(genericRepository == null) {
+    		return new GenericRepository();
+    	}
+    	return genericRepository;
     }
 
     public List<Order> getOrders() {

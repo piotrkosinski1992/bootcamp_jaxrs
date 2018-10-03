@@ -1,5 +1,8 @@
 package com.coreservices.bootcamp.bootcamp.entity;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class Order {
 
 
@@ -18,6 +21,11 @@ public class Order {
         this.name = name;
         this.quantity = quantity;
         this.price = price;
+    }
+    
+    // JaxB required
+    public Order() {
+    	
     }
 
     public String getClientId() {
