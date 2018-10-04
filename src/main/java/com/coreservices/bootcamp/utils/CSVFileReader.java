@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.coreservices.bootcamp.entity.Order;
+import com.coreservices.bootcamp.model.Order;
 
 /**
  * 

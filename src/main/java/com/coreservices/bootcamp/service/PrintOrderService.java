@@ -1,9 +1,12 @@
 package com.coreservices.bootcamp.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import com.coreservices.bootcamp.entity.Order;
+import javax.ws.rs.NotFoundException;
+
+import com.coreservices.bootcamp.model.Order;
 //import com.coreservices.bootcamp.entity.Request;
 import com.coreservices.bootcamp.repository.GenericRepository;
 
@@ -40,7 +43,14 @@ public class PrintOrderService {
     }
 
 	public List<Order> getUserOrders(String clientId) {
-      return inMemoryDatabase.getOrders().stream().filter(order -> order.getClientId().equals(clientId)).collect(Collectors.toList());
+		List <Order> listOfUserOrders = new ArrayList<>();
+		listOfUserOrders.addAll(inMemoryDatabase.getOrders().stream().filter(order -> order.getClientId().equals(clientId)).collect(Collectors.toList()));
+		
+		if(listOfUserOrders.isEmpty()) {
+			throw new NotFoundException("There is no user with id: " + clientId);
+		}
+		
+      return listOfUserOrders;
 	}
 
 	public double getAVGOfOrderPriceFromClient(String clientId) {

@@ -4,7 +4,11 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.coreservices.bootcamp.entity.Order;
+import javax.ws.rs.NotFoundException;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.Response.Status;
+
+import com.coreservices.bootcamp.model.Order;
 import com.coreservices.bootcamp.utils.BasicOrderFileReader;
 import com.coreservices.bootcamp.utils.CSVFileReader;
 import com.coreservices.bootcamp.utils.XMLFileReader;
@@ -46,6 +50,11 @@ public class GenericRepository {
             	orders.addAll(fileReader.getOrderListFromFile(file));
             }
         }
+        
+        if(orders.isEmpty()) {
+        	throw new NotFoundException("There is no orders in Inmemory Database");
+        }
+        
         return orders;
     }
 

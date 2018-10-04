@@ -1,4 +1,4 @@
-package com.coreservices.bootcamp.entity;
+package com.coreservices.bootcamp.model;
 
 import java.util.List;
 

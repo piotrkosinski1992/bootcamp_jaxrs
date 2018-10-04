@@ -3,7 +3,7 @@ package com.coreservices.bootcamp.service;
 
 import java.util.List;
 
-import com.coreservices.bootcamp.entity.Order;
+import com.coreservices.bootcamp.model.Order;
 import com.coreservices.bootcamp.repository.GenericRepository;
 import com.coreservices.bootcamp.utils.ReportGenerator;
 

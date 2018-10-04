@@ -17,8 +17,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import com.coreservices.bootcamp.entity.Order;
-//import com.coreservices.bootcamp.entity.Request;
+import com.coreservices.bootcamp.model.Order;
 import com.coreservices.bootcamp.service.PrintOrderService;
 import com.coreservices.bootcamp.service.ReportOrderService;
 
@@ -31,7 +30,6 @@ public class OrderResource {
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public List<Order> getOrders() {
-
 		return printOrderService.getOrders();
 	}
 
