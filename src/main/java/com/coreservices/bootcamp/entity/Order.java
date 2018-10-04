@@ -1,5 +1,6 @@
-package com.coreservices.bootcamp.bootcamp.entity;
+package com.coreservices.bootcamp.entity;
 
+import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -28,33 +29,47 @@ public class Order {
     	
     }
 
+    @XmlElement
     public String getClientId() {
         return clientId;
     }
+    
     public void setClientId(String clientId) {
         this.clientId = clientId;
     }
+    
+    @XmlElement
     public Long getRequestId() {
         return requestId;
     }
+    
     public void setRequestId(Long requestId) {
         this.requestId = requestId;
     }
+    
+    @XmlElement
     public String getName() {
         return name;
     }
+    
     public void setName(String name) {
         this.name = name;
     }
+    
+    @XmlElement
     public int getQuantity() {
         return quantity;
     }
+    
     public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
+    
+    @XmlElement
     public double getPrice() {
         return price;
     }
+    
     public void setPrice(double price) {
         this.price = price;
     }

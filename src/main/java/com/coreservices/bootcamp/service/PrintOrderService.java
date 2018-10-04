@@ -1,11 +1,11 @@
-package com.coreservices.bootcamp.bootcamp.service;
+package com.coreservices.bootcamp.service;
 
 import java.util.List;
-import java.util.Scanner;
 import java.util.stream.Collectors;
 
-import com.coreservices.bootcamp.bootcamp.entity.Order;
-import com.coreservices.bootcamp.bootcamp.repository.GenericRepository;
+import com.coreservices.bootcamp.entity.Order;
+//import com.coreservices.bootcamp.entity.Request;
+import com.coreservices.bootcamp.repository.GenericRepository;
 
 
 
@@ -14,12 +14,11 @@ import com.coreservices.bootcamp.bootcamp.repository.GenericRepository;
  * @author Lenovo
  *  
  */
-public class OrderService {
+public class PrintOrderService {
 
     private GenericRepository inMemoryDatabase;
-    private Scanner sc;
 
-    public OrderService() {
+    public PrintOrderService() {
     	inMemoryDatabase = GenericRepository.initializeDatabaseConnection();
     }
   

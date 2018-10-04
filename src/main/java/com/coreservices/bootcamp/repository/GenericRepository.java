@@ -1,12 +1,13 @@
-package com.coreservices.bootcamp.bootcamp.repository;
+package com.coreservices.bootcamp.repository;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.coreservices.bootcamp.bootcamp.entity.Order;
-import com.coreservices.bootcamp.bootcamp.tools.BasicOrderFileReader;
-import com.coreservices.bootcamp.bootcamp.tools.CSVFileReader;
+import com.coreservices.bootcamp.entity.Order;
+import com.coreservices.bootcamp.utils.BasicOrderFileReader;
+import com.coreservices.bootcamp.utils.CSVFileReader;
+import com.coreservices.bootcamp.utils.XMLFileReader;
 
 
 /**
@@ -28,25 +29,23 @@ public class GenericRepository {
      *  odpalam tu podczas inicjalizacji getOrderObjectList() zeby zainicjalizować pozyskanie danych z plików
      */
     private GenericRepository(){
-        orders = new ArrayList<Order>();
+        orders = new ArrayList<>();
         getOrderObjectList();
     };
 
     private List<Order> getOrderObjectList(){
 
-        File[] listOfOrderFiles = getOrderFiles();
-
-        for(File file : listOfOrderFiles) {
+        for(File file : getOrderFiles()) {
             String fileName = file.getName();
             String extension = fileName.substring(fileName.lastIndexOf("."));
             if(extension.equals(".csv")) {
                 fileReader = new CSVFileReader();
-                orders.addAll(fileReader.getOrdersFromFile(file));
+                orders.addAll(fileReader.getOrderListFromFile(file));
             } else if(extension.equals(".xml")) {
-//                getOrdersFromXMLFile(file);
+            	fileReader = new XMLFileReader();
+            	orders.addAll(fileReader.getOrderListFromFile(file));
             }
         }
-
         return orders;
     }
 
