@@ -11,6 +11,7 @@ import javax.ws.rs.core.Response.Status;
 import com.coreservices.bootcamp.model.Order;
 import com.coreservices.bootcamp.utils.BasicOrderFileReader;
 import com.coreservices.bootcamp.utils.CSVFileReader;
+import com.coreservices.bootcamp.utils.OrderValidator;
 import com.coreservices.bootcamp.utils.XMLFileReader;
 
 
@@ -54,11 +55,11 @@ public class GenericRepository {
         if(orders.isEmpty()) {
         	throw new NotFoundException("There is no orders in Inmemory Database");
         }
-        
+             
         return orders;
     }
 
-    private File[] getOrderFiles() {
+	private File[] getOrderFiles() {
     	File folder = new File(getClass().getClassLoader().getResource(ORDERS_DIRECTORY).getPath());
 
         return folder.listFiles();

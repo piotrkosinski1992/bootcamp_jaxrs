@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.coreservices.bootcamp.model.Order;
@@ -30,7 +31,7 @@ public class CSVFileReader implements BasicOrderFileReader {
 
                 String[] order = orderLine.split(",");
 
-                if(lineNumber != 0) {
+                if(lineNumber != 0 && OrderValidator.isOrderValid(order)) {
                     orderList.add(mapOrderLineToObject(order));
                 }
                 lineNumber++;
