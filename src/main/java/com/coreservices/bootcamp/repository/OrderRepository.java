@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.NotFoundException;
-import javax.ws.rs.WebApplicationException;
-import javax.ws.rs.core.Response.Status;
 
 import com.coreservices.bootcamp.model.Order;
 import com.coreservices.bootcamp.utils.BasicOrderFileReader;
 import com.coreservices.bootcamp.utils.CSVFileReader;
-import com.coreservices.bootcamp.utils.OrderValidator;
 import com.coreservices.bootcamp.utils.XMLFileReader;
 
 
@@ -20,24 +17,24 @@ import com.coreservices.bootcamp.utils.XMLFileReader;
  * @author Lenovo
  *	
  */
-public class GenericRepository {
+public class OrderRepository {
 
-
-	private static GenericRepository genericRepository;
+	private static OrderRepository orderRepository;
     private final String ORDERS_DIRECTORY = "orders";
     private BasicOrderFileReader fileReader;
 
     private List<Order> orders;
 
-    /**
-     *  gdzie inicjalizować arraylistę? W konstruktorze a może od razu przy zmniennej. Czemu w konstrukturze :D?
-     *  odpalam tu podczas inicjalizacji getOrderObjectList() zeby zainicjalizować pozyskanie danych z plików
-     */
-    private GenericRepository(){
+    private OrderRepository(){
         orders = new ArrayList<>();
         getOrderObjectList();
     };
 
+    /**
+     * Converts order files to java objects
+     * 
+     * @return
+     */
     private List<Order> getOrderObjectList(){
 
         for(File file : getOrderFiles()) {
@@ -59,22 +56,31 @@ public class GenericRepository {
         return orders;
     }
 
-	private File[] getOrderFiles() {
+    /**
+     * Gets order files from orders directory
+     * 
+     * @return
+     */
+	public File[] getOrderFiles() {
     	File folder = new File(getClass().getClassLoader().getResource(ORDERS_DIRECTORY).getPath());
 
         return folder.listFiles();
     }
 
-    public static GenericRepository initializeDatabaseConnection(){
-    	if(genericRepository == null) {
-    		return new GenericRepository();
+	/**
+	 * Gets singleton instance of a class
+	 * 
+	 * @return
+	 */
+    public static OrderRepository getDatabaseInstance(){
+    	if(orderRepository == null) {
+    		orderRepository = new OrderRepository();
+    		return orderRepository;
     	}
-    	return genericRepository;
+    	return orderRepository;
     }
 
     public List<Order> getOrders() {
         return orders;
     }
-
-
 }

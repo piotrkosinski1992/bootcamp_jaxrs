@@ -1,9 +1,11 @@
 package com.coreservices.bootcamp.utils;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormatSymbols;
+import static com.coreservices.bootcamp.utils.WarningsCenter.*;
+
+import java.text.MessageFormat;
 import java.util.Arrays;
-import java.util.Locale;
+
+import com.coreservices.bootcamp.model.Order;
 
 public class OrderValidator {
 
@@ -11,7 +13,7 @@ public class OrderValidator {
 	public static boolean isOrderValid(String[] order) {
 		
 		if(order.length < 5) {
-			System.err.println("Current order will be removed from order list - not enough data: " + Arrays.toString(order));
+			System.err.println(ORDER_INFO_NOT_COMPLETE_WARN + Arrays.toString(order));
 			return false;
 		}
 		
@@ -19,13 +21,23 @@ public class OrderValidator {
 	}
 	
 	
+	public static boolean isOrderValid(Order order) {
+		
+		if(hasNullParameters(order)) {
+			System.err.println(ORDER_INFO_NOT_COMPLETE_WARN + order.toString());
+			return false;
+		}
+		
+		return true;
+	}
+	
 	private static boolean isClientIdValid(String clientId) {
 
 		if(clientId.contains(" ")) {
-			System.err.println("clientId " + clientId + " contains whitespaces. Order will be deleted from order list");
+			System.err.println(MessageFormat.format(CLIENTID_WHITESPACES_WARN, clientId));
 			return false;
 		} else if(clientId.length() > 6) {
-			System.err.println("clientId " + clientId + " contains more than 6 signs. Order will be deleted from order list");
+			System.err.println(MessageFormat.format(CLIENTID_TO_MANY_SIGNS_WARN, clientId));
 			return false;
 		}
 		return  true;
@@ -36,16 +48,16 @@ public class OrderValidator {
 		try {
 			Long.parseLong(requestId);
 		} catch(NumberFormatException ex) {
-			System.err.println("requestId: " + requestId + " is not type long. Order will be deleted from order list");
+			System.err.println(MessageFormat.format(REQUESTID_WRONG_FORMAT_WARN, requestId));
 			return false;
 		}
 		
 		return true;
 	}
-	
+		
 	private static boolean isNameValid(String name) {
 		if(name.length() > 255) {
-			System.err.println("name: " + name + " is longer than 255 signs. Order will be deleted from order list");
+			System.err.println(MessageFormat.format(NAME_TOO_LONG_WARN, name));
 			return false;
 		}
 		return true;
@@ -55,24 +67,47 @@ public class OrderValidator {
 		try {
 			Integer.parseInt(quantity);
 		} catch(NumberFormatException ex) {
-			System.err.println("requestId: " + quantity + " is not type integer. Order will be deleted from order list");
+			System.err.println(MessageFormat.format(QUANTITY_WRONG_FORMAT_WARN, quantity));
 			return false;
 		}
 		
 		return true;
 	}
 	
-	private static boolean isPriceValid(String price) {
-//		String a = price;
-//
-//		TODO count numbers of bigdecimal Locale or substring. Consider not integer in other methods too
-//		
-//		if(priceBigDecimal.scale() > 2) {
-//			System.err.println("price: " + price + " has to many numbers after decimal. Order will be deleted from order list");
-//			return false;
-//		}
+	private static boolean isPriceValid(String price) {	
+		try {
+			Double.parseDouble(price);
+			
+			int amountOfNumbersAfterDecimal = price.substring(price.indexOf(".") + 1).trim().length();
+			
+			if(amountOfNumbersAfterDecimal > 2) {
+				System.err.println(MessageFormat.format(PRICE_TO_MANY_DECIMAL_NUMBERS, price));
+				return false;
+			}
+			
+			
+		} catch(NumberFormatException ex) {
+			System.err.println(MessageFormat.format(PRICE_WRONG_FORMAT_WARN, price));
+			return false;
+		}
 
 		return true;
 	}
+	
+	private static boolean isPriceValid(double price) {
+		
+		int amountOfNumbersAfterDecimal = String.valueOf(price).substring(String.valueOf(price).indexOf(".") + 1).trim().length();
+		
+		if(amountOfNumbersAfterDecimal > 2) {
+			System.err.println(MessageFormat.format(PRICE_TO_MANY_DECIMAL_NUMBERS, price));
+			return true;
+		}
+		return false;
+	}
+	
+	
+    private static boolean hasNullParameters(Order order) {
+    	return order.getClientId() == null || order.getName() == null || order.getPrice() == 0 || order.getQuantity() == 0 || order.getRequestId() == null;
+    }
 
 }

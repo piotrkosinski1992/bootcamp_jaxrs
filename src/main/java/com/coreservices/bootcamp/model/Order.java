@@ -7,7 +7,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Order {
 
 
-    //Dodac wielkosc kontenerow
     private String clientId;
     private Long requestId;
     private String name;
@@ -25,9 +24,7 @@ public class Order {
     }
     
     // JaxB required
-    public Order() {
-    	
-    }
+    public Order() {}
 
     @XmlElement
     public String getClientId() {
@@ -51,11 +48,11 @@ public class Order {
     public String getName() {
         return name;
     }
-    
+
     public void setName(String name) {
         this.name = name;
     }
-    
+
     @XmlElement
     public int getQuantity() {
         return quantity;
@@ -79,6 +76,5 @@ public class Order {
         return "Order [clientId=" + clientId + ", requestId=" + requestId + ", name=" + name + ", quantity=" + quantity
                 + ", price=" + price + "]";
     }
-
-
+    
 }

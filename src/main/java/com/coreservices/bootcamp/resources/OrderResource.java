@@ -1,4 +1,4 @@
-package com.coreservices.bootcamp.resource;
+package com.coreservices.bootcamp.resources;
 
 import static com.coreservices.bootcamp.utils.MessageCentrer.AMOUNT_ORDERS_FROM_CLIENT_MESSAGE;
 import static com.coreservices.bootcamp.utils.MessageCentrer.AMOUNT_ORDERS_MESSAGE;
@@ -27,12 +27,23 @@ public class OrderResource {
 	private PrintOrderService printOrderService = new PrintOrderService();
 	private ReportOrderService reportOrderService = new ReportOrderService();
 
+	/**
+	 * returns all orders
+	 * 
+	 * @return
+	 */
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
 	public List<Order> getOrders() {
 		return printOrderService.getOrders();
 	}
 
+	/**
+	 * get orders from particular user
+	 * 
+	 * @param clientId
+	 * @return
+	 */
 	@GET
 	@Path("/client/{clientId}")
 	@Produces(MediaType.APPLICATION_XML)
@@ -40,6 +51,12 @@ public class OrderResource {
 		return printOrderService.getUserOrders(clientId);
 	}
 
+	/**
+	 * returns total amount of orders
+	 * 
+	 * @param generateReport
+	 * @return
+	 */
 	@GET
 	@Path("/amount")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -54,6 +71,13 @@ public class OrderResource {
 		return AMOUNT_ORDERS_MESSAGE + printOrderService.getTotalAmountOfOrders();
 	}
 
+	/**
+	 * returns amount of orders from particular client
+	 * 
+	 * @param generateReport
+	 * @param clientId
+	 * @return
+	 */
 	@GET
 	@Path("/client/amount/{clientId}")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -69,6 +93,12 @@ public class OrderResource {
 		return AMOUNT_ORDERS_FROM_CLIENT_MESSAGE + printOrderService.getTotalAmountOfOrdersFromClient(clientId);
 	}
 
+	/**
+	 * returns total price of all orders
+	 * 
+	 * @param generateReport
+	 * @return
+	 */
 	@GET
 	@Path("/sum")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -83,6 +113,13 @@ public class OrderResource {
 		return PRICE_OF_ORDERS_MESSAGE + printOrderService.getTotalPriceOfOrders();
 	}
 
+	/**
+	 * returns total price of orders from particular user
+	 * 
+	 * @param generateReport
+	 * @param clientId
+	 * @return
+	 */
 	@GET
 	@Path("client/sum/{clientId}")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -98,6 +135,13 @@ public class OrderResource {
 		return PRICE_CLIENT_ORDERS_MESSAGE + printOrderService.getTotalPriceOfOrdersFromClient(clientId);
 	}
 
+	
+	/**
+	 * returns average price from all orders
+	 * 
+	 * @param generateReport
+	 * @return
+	 */
 	@GET
 	@Path("/avgPrice")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -112,6 +156,13 @@ public class OrderResource {
 		return AVG_PRICE_ORDERS_MESSAGE + printOrderService.getAVGOfOrderPrice();
 	}
 
+	/**
+	 * returns average price of orders from particular client
+	 * 
+	 * @param generateReport
+	 * @param clientId
+	 * @return
+	 */
 	@GET
 	@Path("client/avg/{clientId}")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -127,6 +178,12 @@ public class OrderResource {
 		return AVG_PRICE_ORDERS_FROM_CLIENT_MESSAGE + printOrderService.getAVGOfOrderPriceFromClient(clientId);
 	}
 
+
+	/**
+	 * generates report with all orders
+	 * 
+	 * @return
+	 */
 	@GET
 	@Path("/report")
 	@Produces(MediaType.TEXT_PLAIN)
@@ -135,7 +192,13 @@ public class OrderResource {
 		String orderReportDir = reportOrderService.generateReport(printOrderService.getOrders());
 		return GENERATED_REPORT_MESSAGE + orderReportDir;
 	}
-
+	
+	/**
+	 * generates report with orders from particular user
+	 * 
+	 * @param clientId
+	 * @return
+	 */
 	@GET
 	@Path("/client/{clientId}/report")
 	@Produces(MediaType.TEXT_PLAIN)

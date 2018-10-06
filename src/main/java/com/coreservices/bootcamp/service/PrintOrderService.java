@@ -7,8 +7,7 @@ import java.util.stream.Collectors;
 import javax.ws.rs.NotFoundException;
 
 import com.coreservices.bootcamp.model.Order;
-//import com.coreservices.bootcamp.entity.Request;
-import com.coreservices.bootcamp.repository.GenericRepository;
+import com.coreservices.bootcamp.repository.OrderRepository;
 
 
 
@@ -19,10 +18,10 @@ import com.coreservices.bootcamp.repository.GenericRepository;
  */
 public class PrintOrderService {
 
-    private GenericRepository inMemoryDatabase;
+    private OrderRepository inMemoryDatabase;
 
     public PrintOrderService() {
-    	inMemoryDatabase = GenericRepository.initializeDatabaseConnection();
+    	inMemoryDatabase = OrderRepository.getDatabaseInstance();
     }
   
     

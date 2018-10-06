@@ -4,15 +4,15 @@ package com.coreservices.bootcamp.service;
 import java.util.List;
 
 import com.coreservices.bootcamp.model.Order;
-import com.coreservices.bootcamp.repository.GenericRepository;
+import com.coreservices.bootcamp.repository.OrderRepository;
 import com.coreservices.bootcamp.utils.ReportGenerator;
 
 public class ReportOrderService {
 	
-    private GenericRepository inMemoryDatabase;
+    private OrderRepository inMemoryDatabase;
 
     public ReportOrderService() {
-    	inMemoryDatabase = GenericRepository.initializeDatabaseConnection();
+    	inMemoryDatabase = OrderRepository.getDatabaseInstance();
     }
 
 	public String generateReport(String message, Object value) {
