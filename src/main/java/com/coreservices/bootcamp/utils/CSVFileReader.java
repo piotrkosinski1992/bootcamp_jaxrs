@@ -20,9 +20,9 @@ public class CSVFileReader implements BasicOrderFileReader {
 
     private BufferedReader br = null;
     private String orderLine = "";
-    private List<Order> orderList = new ArrayList<>();
-
+    
     public List<Order> getOrderListFromFile(File csvFile){
+    	List<Order> orderList = new ArrayList<>();
         int lineNumber = 0;
         try {
             br = new BufferedReader(new FileReader(csvFile));
@@ -42,10 +42,7 @@ public class CSVFileReader implements BasicOrderFileReader {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
         return orderList;
-
     }
     
     private Order mapOrderLineToObject(String[] orderLine) {

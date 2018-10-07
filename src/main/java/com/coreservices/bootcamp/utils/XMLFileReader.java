@@ -20,7 +20,7 @@ import com.coreservices.bootcamp.model.Orders;
 /**
  * 
  * @author Lenovo
- *	Klasa do odczytywania zam�wie� z plik�w xml
+ *	
  */
 public class XMLFileReader implements BasicOrderFileReader{
 

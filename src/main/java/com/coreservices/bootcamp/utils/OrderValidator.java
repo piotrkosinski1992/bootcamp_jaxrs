@@ -94,16 +94,16 @@ public class OrderValidator {
 		return true;
 	}
 	
-	private static boolean isPriceValid(double price) {
-		
-		int amountOfNumbersAfterDecimal = String.valueOf(price).substring(String.valueOf(price).indexOf(".") + 1).trim().length();
-		
-		if(amountOfNumbersAfterDecimal > 2) {
-			System.err.println(MessageFormat.format(PRICE_TO_MANY_DECIMAL_NUMBERS, price));
-			return true;
-		}
-		return false;
-	}
+//	private static boolean isPriceValid(double price) {
+//		
+//		int amountOfNumbersAfterDecimal = String.valueOf(price).substring(String.valueOf(price).indexOf(".") + 1).trim().length();
+//		
+//		if(amountOfNumbersAfterDecimal > 2) {
+//			System.err.println(MessageFormat.format(PRICE_TO_MANY_DECIMAL_NUMBERS, price));
+//			return true;
+//		}
+//		return false;
+//	}
 	
 	
     private static boolean hasNullParameters(Order order) {

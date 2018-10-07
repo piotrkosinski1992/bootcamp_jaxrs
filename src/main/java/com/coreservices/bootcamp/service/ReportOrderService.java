@@ -21,8 +21,7 @@ public class ReportOrderService {
 	}
 	
 	public String generateReport(List<Order> orders) {
-		return ReportGenerator.generateReport(orders);
-		
+		return ReportGenerator.generateReport(orders);		
 	}
 
 }

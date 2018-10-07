@@ -20,7 +20,7 @@ import com.coreservices.bootcamp.utils.XMLFileReader;
 public class OrderRepository {
 
 	private static OrderRepository orderRepository;
-    private final String ORDERS_DIRECTORY = "orders";
+    private static String ordersDirectory = "orders";
     private BasicOrderFileReader fileReader;
 
     private List<Order> orders;
@@ -37,7 +37,7 @@ public class OrderRepository {
      */
     private List<Order> getOrderObjectList(){
 
-        for(File file : getOrderFiles()) {
+        for(File file : getOrderFiles(ordersDirectory)) {
             String fileName = file.getName();
             String extension = fileName.substring(fileName.lastIndexOf("."));
             if(extension.equals(".csv")) {
@@ -61,8 +61,8 @@ public class OrderRepository {
      * 
      * @return
      */
-	public File[] getOrderFiles() {
-    	File folder = new File(getClass().getClassLoader().getResource(ORDERS_DIRECTORY).getPath());
+	private File[] getOrderFiles(String orderDirectory) {
+    	File folder = new File(getClass().getClassLoader().getResource(orderDirectory).getPath());
 
         return folder.listFiles();
     }
@@ -83,4 +83,9 @@ public class OrderRepository {
     public List<Order> getOrders() {
         return orders;
     }
+
+	public static void setOrdersDirectory(String ordersDirectory) {
+		OrderRepository.ordersDirectory = ordersDirectory;
+	}
+        
 }
