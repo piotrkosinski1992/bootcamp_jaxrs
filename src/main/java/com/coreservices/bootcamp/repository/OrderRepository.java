@@ -40,7 +40,7 @@ public class OrderRepository {
         for(File file : getOrderFiles(ordersDirectory)) {
             String fileName = file.getName();
             String extension = fileName.substring(fileName.lastIndexOf("."));
-            if(extension.equals(".csv")) {
+            if (extension.equals(".csv")) {
                 fileReader = new CSVFileReader();
                 orders.addAll(fileReader.getOrderListFromFile(file));
             } else if(extension.equals(".xml")) {
