@@ -6,8 +6,8 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Logger;
 
 import com.coreservices.bootcamp.model.Order;
 
@@ -16,6 +16,8 @@ import com.coreservices.bootcamp.model.Order;
  */
 public class CSVFileReader implements BasicOrderFileReader {
 
+	private static Logger LOGGER = Logger.getLogger(CSVFileReader.class.getName());
+	
     private BufferedReader br = null;
     private String orderLine = "";
     
@@ -41,9 +43,9 @@ public class CSVFileReader implements BasicOrderFileReader {
             }
 
         } catch (FileNotFoundException e) {
-                e.printStackTrace();
+        	LOGGER.warning(e.getMessage());
         } catch (IOException e) {
-            e.printStackTrace();
+        	LOGGER.warning(e.getMessage());
         }
         return orderList;
     }

@@ -6,6 +6,7 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
@@ -21,6 +22,8 @@ import com.coreservices.bootcamp.model.Orders;
  */
 public class XMLFileReader implements BasicOrderFileReader {
 
+	private static Logger LOGGER = Logger.getLogger(CSVFileReader.class.getName());
+	
 	/**
 	 * Converts xml order file to object list
 	 */
@@ -37,12 +40,12 @@ public class XMLFileReader implements BasicOrderFileReader {
 				filteredOrders = orders.getListOfOrders().stream().filter(order -> OrderValidator.isOrderValid(order))
 						.collect(Collectors.toList());
 			} else {
-				System.err.println(MessageFormat.format(FILE_WITHOUT_ORDERS_WARN, file.getName()));
+				LOGGER.warning(MessageFormat.format(FILE_WITHOUT_ORDERS_WARN, file.getName()));
 			}
 
 			return filteredOrders;
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			LOGGER.warning(e.getMessage());
 		}
 
 		return new ArrayList<>();

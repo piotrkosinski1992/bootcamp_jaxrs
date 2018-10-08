@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
+import java.util.logging.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -18,8 +19,9 @@ import com.coreservices.bootcamp.model.Orders;
  */
 public class ReportGenerator {
 
-	private static File orderFile;
+	private static Logger LOGGER = Logger.getLogger(ReportGenerator.class.getName());
 	
+	private static File orderFile;
 	
 	/**
 	 * Generates report based on operation output value 
@@ -35,7 +37,7 @@ public class ReportGenerator {
 			writer.println(message + operationOutputValue);
 			writer.close();
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.warning(e.getMessage());
 		}
 
 		return orderFile.getAbsolutePath();
@@ -62,9 +64,9 @@ public class ReportGenerator {
 	        //Marshal the Orders list in file
 	        jaxbMarshaller.marshal(ordersObject, createBlankReport());
 		} catch (JAXBException e) {
-			e.printStackTrace();
+			LOGGER.warning(e.getMessage());
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.warning(e.getMessage());
 		}
 		
     	return orderFile.getAbsolutePath();
