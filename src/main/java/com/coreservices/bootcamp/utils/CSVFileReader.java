@@ -12,16 +12,19 @@ import java.util.List;
 import com.coreservices.bootcamp.model.Order;
 
 /**
- * 
- * @author Lenovo
- *	
+ * Class generates list of orders based on csv files
  */
 public class CSVFileReader implements BasicOrderFileReader {
 
     private BufferedReader br = null;
     private String orderLine = "";
     
-    public List<Order> getOrderListFromFile(File csvFile){
+    /**
+     * Converts csv files to order classes 
+     * 
+     * @return list of orders
+     */
+    public List<Order> getOrderListFromFile(File csvFile) {
     	List<Order> orderList = new ArrayList<>();
         int lineNumber = 0;
         try {
@@ -45,6 +48,13 @@ public class CSVFileReader implements BasicOrderFileReader {
         return orderList;
     }
     
+    
+    /**
+     * Mapps order table into order class
+     * 
+     * @param orderLine
+     * @return mapped order
+     */
     private Order mapOrderLineToObject(String[] orderLine) {
         return new Order(orderLine[0], Long.parseLong(orderLine[1]), orderLine[2], Integer.parseInt(orderLine[3]), Double.parseDouble(orderLine[4]));
     }

@@ -1,8 +1,10 @@
 package com.coreservices.bootcamp.utils;
 
 
-//Poszukac biblioteki ktora pozwoli tworzyc stringi z dziurami
-
+/**
+ * Here are stored warnings, that are displayed, when there is incorrect order inside order file
+ *
+ */
 public class WarningsCenter {
 	
 	public static final String ORDER_INFO_NOT_COMPLETE_WARN = "Current order will be removed from order list - not enough data: ";

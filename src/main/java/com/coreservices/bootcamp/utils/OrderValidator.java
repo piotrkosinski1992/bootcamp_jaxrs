@@ -7,9 +7,19 @@ import java.util.Arrays;
 
 import com.coreservices.bootcamp.model.Order;
 
+/**
+ * Class checks if order has all parameters and if parameters are valid
+ * 
+ */
 public class OrderValidator {
 
 	
+	/**
+	 * Method checks if order is valid based on array with order parameters
+	 * 
+	 * @param order
+	 * @return True/false based on order validation
+	 */
 	public static boolean isOrderValid(String[] order) {
 		
 		if(order.length < 5) {
@@ -20,7 +30,12 @@ public class OrderValidator {
 		return isClientIdValid(order[0]) && isRequestIdValid(order[1]) && isNameValid(order[2]) && isQuantityValid(order[3]) && isPriceValid(order[4]);
 	}
 	
-	
+	/**
+	 * Method checks if order is valid based on order object
+	 * 
+	 * @param order
+	 * @return True/false based on order validation
+	 */
 	public static boolean isOrderValid(Order order) {
 		
 		if(hasNullParameters(order)) {
@@ -31,6 +46,12 @@ public class OrderValidator {
 		return true;
 	}
 	
+	/**
+	 * Method checks if clientId meets the requierments
+	 * 
+	 * @param clientId
+	 * @return True/false based on clientId validation
+	 */
 	private static boolean isClientIdValid(String clientId) {
 
 		if(clientId.contains(" ")) {
@@ -43,6 +64,12 @@ public class OrderValidator {
 		return  true;
 	}
 	
+	/**
+	 * Method checks if requestId meets the requierments
+	 * 
+	 * @param requestId
+	 * @return True/false based on requestId validation
+	 */
 	private static boolean isRequestIdValid(String requestId) {
 		
 		try {
@@ -55,6 +82,12 @@ public class OrderValidator {
 		return true;
 	}
 		
+	/**
+	 * Method checks if name meets the requierments
+	 * 
+	 * @param name
+	 * @return True/false based on name validation
+	 */
 	private static boolean isNameValid(String name) {
 		if(name.length() > 255) {
 			System.err.println(MessageFormat.format(NAME_TOO_LONG_WARN, name));
@@ -63,6 +96,12 @@ public class OrderValidator {
 		return true;
 	}
 	
+	/**
+	 * Method checks if quantity meets the requierments
+	 * 
+	 * @param quantity
+	 * @return True/false based on quantity validation
+	 */
 	private static boolean isQuantityValid(String quantity) {
 		try {
 			Integer.parseInt(quantity);
@@ -74,6 +113,12 @@ public class OrderValidator {
 		return true;
 	}
 	
+	/**
+	 * Method checks if price meets the requierments
+	 * 
+	 * @param price
+	 * @return True/false based on price validation
+	 */
 	private static boolean isPriceValid(String price) {	
 		try {
 			Double.parseDouble(price);
@@ -94,18 +139,12 @@ public class OrderValidator {
 		return true;
 	}
 	
-//	private static boolean isPriceValid(double price) {
-//		
-//		int amountOfNumbersAfterDecimal = String.valueOf(price).substring(String.valueOf(price).indexOf(".") + 1).trim().length();
-//		
-//		if(amountOfNumbersAfterDecimal > 2) {
-//			System.err.println(MessageFormat.format(PRICE_TO_MANY_DECIMAL_NUMBERS, price));
-//			return true;
-//		}
-//		return false;
-//	}
-	
-	
+	/**
+	 * Method checks if all parameters in order object are set
+	 * 
+	 * @param order
+	 * @return True/false based on order property validation
+	 */
     private static boolean hasNullParameters(Order order) {
     	return order.getClientId() == null || order.getName() == null || order.getPrice() == 0 || order.getQuantity() == 0 || order.getRequestId() == null;
     }

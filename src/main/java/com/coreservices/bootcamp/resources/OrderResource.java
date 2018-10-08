@@ -21,6 +21,10 @@ import com.coreservices.bootcamp.model.Order;
 import com.coreservices.bootcamp.service.PrintOrderService;
 import com.coreservices.bootcamp.service.ReportOrderService;
 
+/**
+ * Class receives http requests and based of request proceeds appropriate
+ * methods
+ */
 @Path("/orders")
 public class OrderResource {
 
@@ -28,9 +32,8 @@ public class OrderResource {
 	private ReportOrderService reportOrderService = new ReportOrderService();
 
 	/**
-	 * returns all orders
 	 * 
-	 * @return
+	 * @return Order list as xml format
 	 */
 	@GET
 	@Produces(MediaType.APPLICATION_XML)
@@ -39,10 +42,9 @@ public class OrderResource {
 	}
 
 	/**
-	 * get orders from particular user
 	 * 
-	 * @param clientId
-	 * @return
+	 * @param clientId 
+	 * @return Orders from particular user as xml format
 	 */
 	@GET
 	@Path("/client/{clientId}")
@@ -52,10 +54,9 @@ public class OrderResource {
 	}
 
 	/**
-	 * returns total amount of orders
 	 * 
-	 * @param generateReport
-	 * @return
+	 * @param generateReport Boolean that decides if report will be generated
+	 * @return Total amount of orders
 	 */
 	@GET
 	@Path("/amount")
@@ -72,11 +73,10 @@ public class OrderResource {
 	}
 
 	/**
-	 * returns amount of orders from particular client
 	 * 
-	 * @param generateReport
+	 * @param generateReport Boolean that decides if report will be generated
 	 * @param clientId
-	 * @return
+	 * @return Amount of orders from particular client
 	 */
 	@GET
 	@Path("/client/amount/{clientId}")
@@ -94,10 +94,9 @@ public class OrderResource {
 	}
 
 	/**
-	 * returns total price of all orders
 	 * 
-	 * @param generateReport
-	 * @return
+	 * @param generateReport Boolean that decides if report will be generated
+	 * @return Total price of all orders
 	 */
 	@GET
 	@Path("/sum")
@@ -114,11 +113,10 @@ public class OrderResource {
 	}
 
 	/**
-	 * returns total price of orders from particular user
 	 * 
-	 * @param generateReport
+	 * @param generateReport Boolean that decides if report will be generated
 	 * @param clientId
-	 * @return
+	 * @return Total price of orders from particular user
 	 */
 	@GET
 	@Path("client/sum/{clientId}")
@@ -135,12 +133,10 @@ public class OrderResource {
 		return PRICE_CLIENT_ORDERS_MESSAGE + printOrderService.getTotalPriceOfOrdersFromClient(clientId);
 	}
 
-	
-	/**
-	 * returns average price from all orders
+	/** 
 	 * 
-	 * @param generateReport
-	 * @return
+	 * @param generateReport Boolean that decides if report will be generated
+	 * @return Average price from all orders
 	 */
 	@GET
 	@Path("/avgPrice")
@@ -157,11 +153,10 @@ public class OrderResource {
 	}
 
 	/**
-	 * returns average price of orders from particular client
 	 * 
-	 * @param generateReport
+	 * @param generateReport Boolean that decides if report will be generated
 	 * @param clientId
-	 * @return
+	 * @return Average price of orders from particular client
 	 */
 	@GET
 	@Path("client/avg/{clientId}")
@@ -178,11 +173,10 @@ public class OrderResource {
 		return AVG_PRICE_ORDERS_FROM_CLIENT_MESSAGE + printOrderService.getAVGOfOrderPriceFromClient(clientId);
 	}
 
-
 	/**
-	 * generates report with all orders
+	 * Generates report with all orders
 	 * 
-	 * @return
+	 * @return Info about path where report is stored
 	 */
 	@GET
 	@Path("/report")
@@ -192,12 +186,12 @@ public class OrderResource {
 		String orderReportDir = reportOrderService.generateReport(printOrderService.getOrders());
 		return GENERATED_REPORT_MESSAGE + orderReportDir;
 	}
-	
+
 	/**
-	 * generates report with orders from particular user
+	 * Generates report with orders from particular user
 	 * 
 	 * @param clientId
-	 * @return
+	 * @return Info about path where report is stored
 	 */
 	@GET
 	@Path("/client/{clientId}/report")

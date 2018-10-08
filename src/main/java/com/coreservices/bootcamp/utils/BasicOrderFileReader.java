@@ -5,13 +5,9 @@ import java.util.List;
 
 import com.coreservices.bootcamp.model.Order;
 
-
-
-
-/**
+/*
  * 
- * @author Lenovo
- *	Rodzic roznych reader�w z roznych rodzaj�w plik�w
+ * FileReader intefrace
  */
 public interface BasicOrderFileReader {
 

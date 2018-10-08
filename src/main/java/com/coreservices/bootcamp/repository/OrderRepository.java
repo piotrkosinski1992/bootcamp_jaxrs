@@ -13,19 +13,31 @@ import com.coreservices.bootcamp.utils.XMLFileReader;
 
 
 /**
- * 
- * @author Lenovo
- *	
+ * Representation of InMemory database. Singleton class gets and stores all orders from files
  */
 public class OrderRepository {
 
+	/**
+	 * Place to store singleton instance
+	 */
 	private static OrderRepository orderRepository;
+	
+	/**
+	 * Directory where orders are stored
+	 */
     private static String ordersDirectory = "orders";
+    
+    /**
+     * Helper class to read files
+     */
     private BasicOrderFileReader fileReader;
-
+    
+    /**
+     * List of orders from order files
+     */
     private List<Order> orders;
 
-    private OrderRepository(){
+    private OrderRepository() {
         orders = new ArrayList<>();
         getOrderObjectList();
     };
@@ -33,9 +45,9 @@ public class OrderRepository {
     /**
      * Converts order files to java objects
      * 
-     * @return
+     * @return List of orders
      */
-    private List<Order> getOrderObjectList(){
+    private List<Order> getOrderObjectList() {
 
         for(File file : getOrderFiles(ordersDirectory)) {
             String fileName = file.getName();
@@ -59,7 +71,7 @@ public class OrderRepository {
     /**
      * Gets order files from orders directory
      * 
-     * @return
+     * @return List of order files
      */
 	private File[] getOrderFiles(String orderDirectory) {
     	File folder = new File(getClass().getClassLoader().getResource(orderDirectory).getPath());
@@ -68,11 +80,10 @@ public class OrderRepository {
     }
 
 	/**
-	 * Gets singleton instance of a class
 	 * 
-	 * @return
+	 * @return Singleton instance of class
 	 */
-    public static OrderRepository getDatabaseInstance(){
+    public static OrderRepository getDatabaseInstance() {
     	if(orderRepository == null) {
     		orderRepository = new OrderRepository();
     		return orderRepository;
@@ -80,6 +91,10 @@ public class OrderRepository {
     	return orderRepository;
     }
 
+    /**
+     * 
+     * @return List of orders
+     */
     public List<Order> getOrders() {
         return orders;
     }

@@ -12,16 +12,27 @@ import javax.xml.bind.Marshaller;
 import com.coreservices.bootcamp.model.Order;
 import com.coreservices.bootcamp.model.Orders;
 
-
+/**
+ * Class responsible for generating reports
+ *
+ */
 public class ReportGenerator {
 
 	private static File orderFile;
 	
-	public static String generateReport(String message, Object value) {
+	
+	/**
+	 * Generates report based on operation output value 
+	 * 
+	 * @param message Additional message for user
+	 * @param operationOutputValue Result value after operations on orders
+	 * @return Path to the report file
+	 */
+	public static String generateReport(String message, Object operationOutputValue) {
 		PrintWriter writer;
 		try {
 			writer = new PrintWriter(createBlankReport());
-			writer.println(message + value);
+			writer.println(message + operationOutputValue);
 			writer.close();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -30,6 +41,12 @@ public class ReportGenerator {
 		return orderFile.getAbsolutePath();
 	}
 	
+	/**
+	 * Generates report as xml format based on list of orders
+	 * 
+	 * @param orders
+	 * @return
+	 */
 	public static String generateReport(List<Order> orders) {
 		
 		//prepare ordersObject to marshall
@@ -54,6 +71,11 @@ public class ReportGenerator {
 	}
 	
 	
+	/**
+	 * 
+	 * @return Order directory file
+	 * @throws IOException
+	 */
 	private static File createBlankReport() throws IOException {
 		File directory = new File("reports");
 		

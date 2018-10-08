@@ -14,11 +14,11 @@ import com.coreservices.bootcamp.model.Order;
 public class CSVFileReaderTest {
 	
 	// correct orders
-	private File CSVFile1;
+	private File csvFile1;
 	// wrong orders
-	private File CSVFile2;
+	private File csvFile2;
 	// no orders inside
-	private File CSVFile3;
+	private File csvFile3;
 
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
@@ -29,15 +29,15 @@ public class CSVFileReaderTest {
 	public void setUp() {
 		cvsFileReader = new CSVFileReader();
 		
-		CSVFile1 = new File("src/test/resources/testOrders/ValidOrder.csv");
-		CSVFile2 = new File("src/test/resources/testOrders/InvalidOrder.csv");
-		CSVFile3 = new File("src/test/resources/testOrders/EmptyOrder.csv");
+		csvFile1 = new File("src/test/resources/testOrders/ValidOrder.csv");
+		csvFile2 = new File("src/test/resources/testOrders/InvalidOrder.csv");
+		csvFile3 = new File("src/test/resources/testOrders/EmptyOrder.csv");
 	}
 
 	@Test
 	public void getOrderListFromFileTest() {
 		
-		List<Order> orders = cvsFileReader.getOrderListFromFile(CSVFile1);
+		List<Order> orders = cvsFileReader.getOrderListFromFile(csvFile1);
 		Order order = orders.get(0);
 		
 		Assert.assertTrue(order.getClientId() != null);
@@ -48,10 +48,10 @@ public class CSVFileReaderTest {
 		
 		Assert.assertTrue(orders.size() == 4);
 		
-		orders.addAll(cvsFileReader.getOrderListFromFile(CSVFile2));
+		orders.addAll(cvsFileReader.getOrderListFromFile(csvFile2));
 		Assert.assertTrue(orders.size() == 4);
 		
-		orders.addAll(cvsFileReader.getOrderListFromFile(CSVFile3));
+		orders.addAll(cvsFileReader.getOrderListFromFile(csvFile3));
 		Assert.assertTrue(orders.size() == 4);
 	}
 }

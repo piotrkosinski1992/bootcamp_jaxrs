@@ -3,9 +3,13 @@ package com.coreservices.bootcamp.model;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+
+/**
+ * Representation of order
+ *
+ */
 @XmlRootElement
 public class Order {
-
 
     private String clientId;
     private Long requestId;
