@@ -9,10 +9,9 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.InjectMocks;
-import org.mockito.MockitoAnnotations;
 
 import com.coreservices.bootcamp.model.Order;
+import com.coreservices.bootcamp.repository.OrderRepository;
 
 public class ReportOrderServiceTest {
 
@@ -20,12 +19,13 @@ private List<Order> orders = new ArrayList<>();
 		
 	private File report;
 	
-	@InjectMocks
 	ReportOrderService orderService;	
 	
 	@Before
 	public void setUp() {
-		MockitoAnnotations.initMocks(this);
+		
+		OrderRepository.setOrdersDirectory("ServiceTestOrders");
+		orderService = new ReportOrderService();
 		
 		orders.add(new Order("1",1L, "bulka", 22, 20.00));
 		orders.add(new Order("1",1L, "bulka2", 322, 40.00));

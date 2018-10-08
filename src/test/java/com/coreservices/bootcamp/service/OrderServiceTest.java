@@ -1,10 +1,5 @@
 package com.coreservices.bootcamp.service;
 
-import static org.mockito.Mockito.when;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.ws.rs.NotFoundException;
 
 import org.junit.Assert;
@@ -12,40 +7,27 @@ import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 
-import com.coreservices.bootcamp.model.Order;
 import com.coreservices.bootcamp.repository.OrderRepository;
 
 public class OrderServiceTest {
-
-	private List<Order> orders = new ArrayList<>();
 	
 	@Rule
 	public ExpectedException thrown = ExpectedException.none();
 	
-	@InjectMocks
 	PrintOrderService orderService;	
 	
-	@Mock
 	OrderRepository orderRepository;
 	
 	@Before
 	public void setUp() {
-		MockitoAnnotations.initMocks(this);
-		
 
-		orders.add(new Order("1",1L, "bulka", 22, 20.00));
-		orders.add(new Order("1",1L, "bulka2", 322, 40.00));
-		orders.add(new Order("2",1L, "bulka3", 122, 60.00));
-		
-		when(orderRepository.getOrders()).thenReturn(orders);
+		OrderRepository.setOrdersDirectory("ServiceTestOrders");
+		orderService = new PrintOrderService();	
 	}
 	
 	@Test
-	public void getOrdersTest() {		
+	public void getOrdersTest() {	
 		Assert.assertTrue(orderService.getOrders().size() == 3);
 	}
 	
