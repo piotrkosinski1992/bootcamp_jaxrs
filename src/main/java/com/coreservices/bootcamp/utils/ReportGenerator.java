@@ -4,11 +4,12 @@ import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.logging.Logger;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Marshaller;
+
+import org.apache.log4j.Logger;
 
 import com.coreservices.bootcamp.model.Order;
 import com.coreservices.bootcamp.model.Orders;
@@ -37,7 +38,7 @@ public class ReportGenerator {
 			writer.println(message + operationOutputValue);
 			writer.close();
 		} catch (IOException e) {
-			LOGGER.warning(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 
 		return orderFile.getAbsolutePath();
@@ -64,9 +65,9 @@ public class ReportGenerator {
 	        //Marshal the Orders list in file
 	        jaxbMarshaller.marshal(ordersObject, createBlankReport());
 		} catch (JAXBException e) {
-			LOGGER.warning(e.getMessage());
+			LOGGER.error(e.getMessage());
 		} catch (IOException e) {
-			LOGGER.warning(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 		
     	return orderFile.getAbsolutePath();

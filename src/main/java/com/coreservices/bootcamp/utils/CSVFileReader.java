@@ -7,7 +7,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
 
 import com.coreservices.bootcamp.model.Order;
 
@@ -43,9 +43,9 @@ public class CSVFileReader implements BasicOrderFileReader {
             }
 
         } catch (FileNotFoundException e) {
-        	LOGGER.warning(e.getMessage());
+        	LOGGER.error(e.getMessage());
         } catch (IOException e) {
-        	LOGGER.warning(e.getMessage());
+        	LOGGER.error(e.getMessage());
         }
         return orderList;
     }

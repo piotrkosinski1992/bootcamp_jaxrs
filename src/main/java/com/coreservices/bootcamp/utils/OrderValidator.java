@@ -4,7 +4,8 @@ import static com.coreservices.bootcamp.utils.WarningsCenter.*;
 
 import java.text.MessageFormat;
 import java.util.Arrays;
-import java.util.logging.Logger;
+
+import org.apache.log4j.Logger;
 
 import com.coreservices.bootcamp.model.Order;
 
@@ -25,7 +26,7 @@ public class OrderValidator {
 	public static boolean isOrderValid(String[] order) {
 		
 		if(order.length < 5) {
-			LOGGER.warning(ORDER_INFO_NOT_COMPLETE_WARN + Arrays.toString(order));
+			LOGGER.warn(ORDER_INFO_NOT_COMPLETE_WARN + Arrays.toString(order));
 			return false;
 		}
 		
@@ -41,7 +42,7 @@ public class OrderValidator {
 	public static boolean isOrderValid(Order order) {
 		
 		if(hasNullParameters(order)) {
-			LOGGER.warning(ORDER_INFO_NOT_COMPLETE_WARN + order.toString());
+			LOGGER.warn(ORDER_INFO_NOT_COMPLETE_WARN + order.toString());
 			return false;
 		}
 		
@@ -57,10 +58,10 @@ public class OrderValidator {
 	private static boolean isClientIdValid(String clientId) {
 
 		if(clientId.contains(" ")) {
-			LOGGER.warning(MessageFormat.format(CLIENTID_WHITESPACES_WARN, clientId));
+			LOGGER.warn(MessageFormat.format(CLIENTID_WHITESPACES_WARN, clientId));
 			return false;
 		} else if(clientId.length() > 6) {
-			LOGGER.warning(MessageFormat.format(CLIENTID_TO_MANY_SIGNS_WARN, clientId));
+			LOGGER.warn(MessageFormat.format(CLIENTID_TO_MANY_SIGNS_WARN, clientId));
 			return false;
 		}
 		return  true;
@@ -77,7 +78,7 @@ public class OrderValidator {
 		try {
 			Long.parseLong(requestId);
 		} catch(NumberFormatException ex) {
-			LOGGER.warning(MessageFormat.format(REQUESTID_WRONG_FORMAT_WARN, requestId));
+			LOGGER.warn(MessageFormat.format(REQUESTID_WRONG_FORMAT_WARN, requestId));
 			return false;
 		}
 		
@@ -92,7 +93,7 @@ public class OrderValidator {
 	 */
 	private static boolean isNameValid(String name) {
 		if(name.length() > 255) {
-			LOGGER.warning(MessageFormat.format(NAME_TOO_LONG_WARN, name));
+			LOGGER.warn(MessageFormat.format(NAME_TOO_LONG_WARN, name));
 			return false;
 		}
 		return true;
@@ -108,7 +109,7 @@ public class OrderValidator {
 		try {
 			Integer.parseInt(quantity);
 		} catch(NumberFormatException ex) {
-			LOGGER.warning(MessageFormat.format(QUANTITY_WRONG_FORMAT_WARN, quantity));
+			LOGGER.warn(MessageFormat.format(QUANTITY_WRONG_FORMAT_WARN, quantity));
 			return false;
 		}
 		
@@ -128,13 +129,13 @@ public class OrderValidator {
 			int amountOfNumbersAfterDecimal = price.substring(price.indexOf(".") + 1).trim().length();
 			
 			if(amountOfNumbersAfterDecimal > 2) {
-				LOGGER.warning(MessageFormat.format(PRICE_TO_MANY_DECIMAL_NUMBERS, price));
+				LOGGER.warn(MessageFormat.format(PRICE_TO_MANY_DECIMAL_NUMBERS, price));
 				return false;
 			}
 			
 			
 		} catch(NumberFormatException ex) {
-			LOGGER.warning(MessageFormat.format(PRICE_WRONG_FORMAT_WARN, price));
+			LOGGER.warn(MessageFormat.format(PRICE_WRONG_FORMAT_WARN, price));
 			return false;
 		}
 

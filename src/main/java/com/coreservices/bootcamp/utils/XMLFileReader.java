@@ -6,12 +6,13 @@ import java.io.File;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
 import javax.xml.bind.Unmarshaller;
+
+import org.apache.log4j.Logger;
 
 import com.coreservices.bootcamp.model.Order;
 import com.coreservices.bootcamp.model.Orders;
@@ -40,12 +41,12 @@ public class XMLFileReader implements BasicOrderFileReader {
 				filteredOrders = orders.getListOfOrders().stream().filter(order -> OrderValidator.isOrderValid(order))
 						.collect(Collectors.toList());
 			} else {
-				LOGGER.warning(MessageFormat.format(FILE_WITHOUT_ORDERS_WARN, file.getName()));
+				LOGGER.warn(MessageFormat.format(FILE_WITHOUT_ORDERS_WARN, file.getName()));
 			}
 
 			return filteredOrders;
 		} catch (JAXBException e) {
-			LOGGER.warning(e.getMessage());
+			LOGGER.error(e.getMessage());
 		}
 
 		return new ArrayList<>();
